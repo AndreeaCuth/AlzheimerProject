@@ -1,23 +1,49 @@
-# Proiect 10x RNA-seq Gene Expression Data (Part 1)
+# Alzheimer Project Overview
 
-## Descriere
-Acest repository conține un Jupyter Notebook care explorează și manipulează date de expresie genică RNA-seq 10X provenite de la 4 milioane de celule. Datele sunt grupate pe baza chimiei 10X (10Xv2, 10Xv3, și 10XMulti) și a regiunii anatomice largi de unde au fost disecate celulele. Notebook-ul oferă o prezentare generală a datelor, organizarea fișierelor și exemple practice de utilizare a datelor combinate cu metadate.
+This repository hosts two distinct projects: `10x RNA-seq Gene Expression Data Project` and `Alzheimer Research Data Processing`. Each project leverages specific datasets to explore and analyze gene expression and medical imaging data related to neurological studies.
 
-## Cerințe
-- Conexiune la internet
+## Projects
+
+### 1. 10x RNA-seq Gene Expression Data Project
+
+#### Description
+This project explores RNA-seq gene expression data from 4 million cells using 10x Genomics technology. The data are categorized based on 10X chemistry (10Xv2, 10Xv3, and 10XMulti) and the broad anatomical region from which the cells were sourced. The Jupyter Notebook included provides an overview of the data, file organization, and practical examples of how to combine data with metadata for analysis.
+
+#### Data
+- **File:** `ABC_Atlas_Class_01_IT-ET_Glut_cells_2024_10_23_16_42.csv`
+  - Used for analysis in the `10x_snRNASeq.ipynb` notebook.
+  - Contains single-nucleus RNA sequencing data, which helps in identifying cellular components affected in neurological disorders.
+
+#### Requirements
+- Internet connection
 - Jupyter Notebook
-- Bibliotecile Python: `pandas`, `numpy`, `matplotlib`, `anndata`
+- Python libraries: `pandas`, `numpy`, `matplotlib`, `anndata`
 
-## Utilizare
-Modificați variabila `download_base` cu calea locală unde au fost descărcate datele în sistemul dumneavoastră. Folosiți `AbcProjectCache` pentru a interacționa cu datele descărcate.
+### 2. Alzheimer Research Data Processing
 
-## Structura Fișierelor
-- `Data/`: Conține seturi de date și metadate.
-- `notebooks/`: Conține Jupyter Notebooks pentru analize.
+#### Description
+This project focuses on processing and analyzing data specifically related to Alzheimer's disease research. It utilizes machine learning models to predict disease stages based on MRI brain image data and other biomarkers.
 
-## Licență
-Acest proiect este disponibil sub licența MIT. Vezi fișierul LICENSING pentru mai multe detalii.
+#### Data
+- **Files:**
+  - `test.parquet`
+  - `train.parquet`
+  - These datasets are used within the `Alzheimer_Research_Data_Processing.ipynb` notebook for developing models that predict Alzheimer's disease progression from MRI images.
 
-## Contact
-Pentru întrebări și suport, vă rugăm să deschideți un issue în acest repository.
+#### Requirements
+- Python environment with libraries such as `torch`, `numpy`, `pandas`, `matplotlib`, and `cv2` (OpenCV).
+
+## General Information
+
+### File Structure
+- `Data/`: Contains datasets and metadata.
+- `notebooks/`: Contains Jupyter Notebooks for analysis.
+
+### Usage
+Change the `download_base` variable to the local path where the data has been downloaded in your system. Use `AbcProjectCache` to interact with downloaded data.
+
+### Licensing
+This project is available under the MIT License. See the LICENSING file for more details.
+
+
 
