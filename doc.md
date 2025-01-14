@@ -1,32 +1,35 @@
-# Mecanismele Genetice și Factorii de Risc în Boala Alzheimer: Căi Monogenice, Moștenire Oligogenică și Asocieri la Nivelul Genomic
 
-## Autori și Coordonatori
-- **Autori**: Szoke Mark-Andor, Andreea-Maria Cuth
-## Prezentare Generală a Paradigmei Propuse
-   - Boala Alzheimer este descrisă ca fiind cea mai comună formă de demență, având un impact profund asupra societății. Cercetarea vizează înțelegerea complexității genetice care contribuie la dezvoltarea bolii.
-   - Paradigma propusă se concentrează pe explorarea căilor genetice monogenice și pe identificarea factorilor oligogenici, precum și pe utilizarea datelor de asociere la nivelul întregului genom pentru a descoperi noi ținte terapeutice.
+# Genetic Mechanisms and Risk Factors in Alzheimer's Disease: Monogenic Pathways, Oligogenic Inheritance, and Genome-Wide Associations
 
-## Descriere Arhitecturală Specifică
-   - Documentul explorează implicațiile mutațiilor în genele APP, PSEN1 și PSEN2, care pot cauza forme monogenice de boala Alzheimer, transmiterea autosomal dominantă având un impact major asupra probabilității de apariție a bolii.
-   - Analiza include și contribuția variațiilor oligogenice, care combină efectele multiplelor gene pentru a influența riscul de boală, precum și metode de corelare a acestor gene cu fenotipurile clinice.
+## Authors
+- **Authors**: Szoke Mark-Andor, Andreea-Maria Cuth
 
-## Configurarea Proiectului
-   - Problema formulată se axează pe identificarea și analiza detaliată a variantelor genetice care contribuie la susceptibilitatea Alzheimer, cu un accent pe distincția între contribuțiile monogenice și cele oligogenice.
-   - Datele folosite includ seturi de date genetice de la cohortele largi de pacienți, precum și date de secvențiere de înaltă rezoluție disponibile prin proiecte internaționale.
-   - Tehnologiile implicate includ analize de secvențiere de nouă generație (NGS), metode bioinformatice avansate pentru analiza datelor genetice și sisteme de gestionare a bazelor de date biomedicale.
+## Overview of the Proposed Paradigm
+- Alzheimer's Disease (AD) is described as the most common form of dementia, having a profound impact on society. The research focuses on understanding the genetic complexity contributing to the disease's development.
+- The proposed paradigm centers on exploring monogenic genetic pathways and identifying oligogenic factors, along with leveraging genome-wide association data to uncover novel therapeutic targets.
 
-## Codul de Bază, Secvențe Importante
+## Specific Architectural Description
+- The document explores the implications of mutations in the **APP**, **PSEN1**, and **PSEN2** genes, which can cause monogenic forms of Alzheimer's Disease, with autosomal dominant inheritance significantly influencing the disease's probability.
+- The analysis includes contributions from oligogenic variations, which combine the effects of multiple genes to influence the disease risk, as well as methods for correlating these genes with clinical phenotypes.
+
+## Project Configuration
+- The formulated problem focuses on identifying and thoroughly analyzing genetic variants contributing to Alzheimer's susceptibility, emphasizing the distinction between monogenic and oligogenic contributions.
+- The data used includes genetic datasets from large cohorts of patients, as well as high-resolution sequencing data available through international projects.
+- The technologies involved include next-generation sequencing (NGS) analyses, advanced bioinformatics methods for genetic data analysis, and biomedical database management systems.
+
+## Code, Important Sections
 
 1. **Alzheimer_Research_Data_Processing**
 
-### Încărcarea seturilor de date de antrenament și test
+### Loading Training and Test Datasets
 ```python
 df_train = pd.read_parquet('Data/train.parquet')
 df_test = pd.read_parquet('Data/test.parquet')
 ```
-Acest cod încarcă datele de antrenament și test din fișierele train.parquet și test.parquet. Aceste date sunt folosite pentru a antrena și evalua modelul de învățare automată.
+This code loads the training and test datasets from the train.parquet and test.parquet files. 
+These datasets are used to train and evaluate the machine learning model.
 
-### Definirea transformărilor pentru preprocesarea imaginilor
+### Defining Transformations for Image Preprocessing
 ```python
 transform = transforms.Compose([
     transforms.ToPILImage(),
@@ -35,9 +38,10 @@ transform = transforms.Compose([
     transforms.Normalize(mean=[0.5], std=[0.5])
 ])
 ```
-Acest fragment de cod configurează transformările aplicate imaginilor, inclusiv conversia la formatul PIL, redimensionarea, tensorizarea și normalizarea. Aceste prelucrări sunt esențiale pentru standardizarea datelor de intrare înainte de a le introduce în model.
+This code configures transformations applied to images, including conversion to PIL format, resizing, tensorization, and normalization. 
+These preprocessing steps are essential for standardizing input data before feeding it into the model.
 
-### Definirea unui model CNN simplu pentru clasificarea imaginilor MRI
+### Defining a Simple CNN Model for MRI Image Classification
 ```python
 class TinyCNN(nn.Module):
     def __init__(self):
@@ -52,9 +56,9 @@ class TinyCNN(nn.Module):
         x = self.fc(x)
         return x
 ```       
-Modelul definit aici este un rețea neuronală convoluțională simplă, care include straturi convoluționale, de pooling și un strat fully connected, destinată clasificării imaginilor MRI în baza caracteristicilor detectate.
+The model defined here is a simple convolutional neural network (CNN) that includes convolutional layers, pooling layers, and a fully connected layer, designed for classifying MRI images based on detected features.
 
-### Antrenarea modelului - Ciclul de antrenament pentru model
+### Training the Model
 ```python
 for epoch in range(10):
     for images, labels in train_loader:
@@ -66,67 +70,69 @@ for epoch in range(10):
         optimizer.step()
     print(f'Epoch {epoch+1}, Loss: {loss.item()}')
 ```       
-Această secțiune de cod demonstrează ciclul de antrenament al modelului, folosind imagini și etichete din setul de date, și afișând pierderea pentru fiecare epocă, pentru a evalua progresul învățării modelului.
+This code demonstrates the model's training loop, using images and labels from the dataset and displaying the loss for each epoch to evaluate the model's learning progress.
 
 2. **10x_snRNASeq**
 
-### Încărcarea și Prelucrarea Inițială a Datelor
+### Initial Loading and Processing of Data
 ```python
 data = sc.read_10x_h5('data_path')
 sc.pp.filter_cells(data, min_genes=200)
 ```
-Această secțiune tratează importul datelor de snRNASeq și focalizarea pe structurile de date și explorarea inițială a datelor. Codul citește datele dintr-o locație specifică și afișează primele rânduri pentru a oferi o imagine de ansamblu asupra structurii setului de date.
+This section handles the import of snRNASeq data, focusing on data structures and initial exploration. 
+The code reads the data from a specific location and displays the initial rows to provide an overview of the dataset structure.
 
-### Preprocesarea Datelor
+### Data Preprocessing
 ```python
 sc.pp.normalize_total(data, target_sum=1e4)
 sc.pp.log1p(data)
 ```
-Datele sunt preprocesate pentru a filtra celulele bazate pe metrice de calitate, cum ar fi numărul de gene detectate. Acest lucru este esențial pentru menținerea calității datelor înalte și asigurarea faptului că analizele ulterioare sunt robuste și fiabile.
+The data is preprocessed to filter cells based on quality metrics, such as the number of detected genes. 
+This step ensures high data quality and robust analyses.
 
-### Normalizarea și Selecția Caracteristicilor
+### Normalization and Feature Selection
 ```python
 sc.pp.highly_variable_genes(data, min_mean=0.0125, max_mean=3, min_disp=0.5)
 data = data[:, data.var.highly_variable]
 ```       
-Tehnicile de normalizare sunt aplicate setului de date pentru a minimiza diferențele în nivelurile de expresie genică care ar putea apărea din adâncimi de secvențiere variabile între probe. 
-De asemenea, sunt selectate caracteristici importante (gene) pe baza variabilității, ceea ce ajută la identificarea celor mai informative caracteristici pentru analiza ulterioară.
+Normalization techniques are applied to the dataset to minimize differences in gene expression levels caused by varying sequencing depths. 
+Additionally, key features (genes) are selected based on variability, helping to identify the most informative features for further analysis.
 
-### Reducerea Dimensiunii
+### Dimensionality Reduction
 ```python
 sc.tl.pca(data, svd_solver='arpack')
 sc.pp.neighbors(data, n_neighbors=10, n_pcs=40)
 sc.tl.umap(data)
 ```       
-Tehnici precum PCA (Analiza Componentelor Principale) și UMAP (Uniform Manifold Approximation and Projection) sunt utilizate pentru a reduce dimensiunile setului de date. 
-Acest lucru simplifică complexitatea datelor, facilitând vizualizarea și identificarea modelelor sau grupurilor.
+Techniques such as PCA (Principal Component Analysis) and UMAP (Uniform Manifold Approximation and Projection) are used to reduce the dataset's dimensionality. 
+This simplifies data complexity, facilitating visualization and identifying patterns or clusters.
 
-### Analiza Clustere
+### Cluster Analysis
 ```python
 sc.tl.louvain(data)
 sc.pl.umap(data, color='louvain')
 ```       
-Setul de date este grupat pentru a identifica grupuri de celule similare, care pot indica diferite tipuri de celule sau stări. 
-Aceasta este o etapă esențială în analiza datelor snRNASeq, oferind perspective asupra compoziției celulare a probelor.
+The dataset is grouped to identify clusters of similar cells, which may indicate different cell types or states. 
+This is a critical step in snRNASeq data analysis, providing insights into the cellular composition of samples.
 
-### Analiza Expresiei Diferențiale
+### Differential Expression Analysis
 ```python
 sc.tl.rank_genes_groups(data, 'louvain', method='t-test')
 sc.pl.rank_genes_groups(data, n_genes=25, sharey=False)
 ```       
-După grupare, se efectuează o analiză a expresiei diferențiale pentru a identifica genele care sunt semnificativ supra- sau sub-regulate între clustere. 
-Acest lucru ajută la caracterizarea diferențelor biologice între tipurile de celule identificate sau condiții.
+After clustering, differential expression analysis identifies genes significantly up- or down-regulated between clusters. 
+This step characterizes biological differences between the identified cell types or conditions.
 
-### Annotarea și Interpretarea
+### Annotation and Interpretation
 ```python
 data.obs['cell_type'] = data.obs['louvain'].map(cell_type_dict)
 sc.pl.umap(data, color='cell_type')
 ```       
-În final, clusterele sunt annotate pe baza markerilor genetici cunoscuți, iar rezultatele sunt interpretate pentru a trage concluzii biologice. 
-Această etapă este crucială pentru a lega analiza computațională de semnificațiile și implicațiile biologice.
+Finally, clusters are annotated based on known genetic markers, and results are interpreted to draw biological conclusions. 
+This step links computational analysis to biological implications.
 
-## Implementarea Aplicației
-   - Se oferă capturi de ecran din software-urile utilizate pentru analize, demonstrând etapele de prelucrare a datelor și rezultatele obținute.
+## Application Implementation
+   - Screenshots from the software tools used for analyses are provided, demonstrating data processing steps and obtained results.
 
 1. **Alzheimer_Research_Data_Processing**
 
