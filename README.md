@@ -2,7 +2,7 @@
 
 This repository hosts two distinct projects: `10x RNA-seq Gene Expression Data Project` and `Alzheimer Research Data Processing`. Each project leverages specific datasets to explore and analyze gene expression and medical imaging data related to neurological studies.
 
-[Alzheimer Documentation](./doc)
+[Alzheimer Documentation](./doc.md)
 
 ## Projects
 
